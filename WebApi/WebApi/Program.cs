@@ -22,6 +22,8 @@ namespace WebApi
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.ConfigureJwt(builder);
+
             builder.Services.AddAuthorization();
 
             var app = builder.Build();

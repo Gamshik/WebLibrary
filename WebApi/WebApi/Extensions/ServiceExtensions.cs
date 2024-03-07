@@ -1,11 +1,13 @@
-﻿using Domain.Classes;
+﻿using Domain.Classes.Services;
 using Domain.Context;
 using Domain.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NLog;
-using Domain.Interfaces;
+using System.Text;
 
 namespace WebApi.Extensions
 {
@@ -70,6 +72,30 @@ namespace WebApi.Extensions
         public static void ConfigureDependencies(this IServiceCollection services)
         {
             services.AddScoped<ILoggerService, LoggerService>();
+        }
+        public static void ConfigureJwt(this IServiceCollection services, WebApplicationBuilder application)
+        {
+            var jwtSetting = application.Configuration.GetSection("Jwt");
+
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(opt =>
+            {
+                opt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidIssuer = jwtSetting.GetSection("Issuer").Value,
+                    ValidAudience = jwtSetting.GetSection("Audience").Value,
+                    ClockSkew = TimeSpan.Zero,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSetting.GetSection("SecurityKey").Value)),
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true
+                };
+            });
         }
     }
 }
