@@ -1,4 +1,7 @@
 
+using Domain.Context;
+using WebApi.Extensions;
+
 namespace WebApi
 {
     public class Program
@@ -7,14 +10,23 @@ namespace WebApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            builder.Services.ConnectDatabase(builder);
+
+            builder.Services.ConfigureIdentity();
+
+            builder.Services.ConfigureSwagger();
+
+            builder.Services.ConfigureLogger();
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddAuthorization();
+
             var app = builder.Build();
+
+            app.MigrateDatabase<ApplicationContext>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -25,8 +37,8 @@ namespace WebApi
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 
