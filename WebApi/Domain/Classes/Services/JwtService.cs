@@ -25,13 +25,15 @@ namespace Domain.Classes.Services
             _expireInDay = Int32.Parse(jwtSetting.GetSection("ExpiresInDay").Value);
             _securityKey = jwtSetting.GetSection("SecurityKey").Value;
         }
-        public Jwt CreateJwtToken()
+        public Jwt? CreateJwtToken()
         {
             var signingCredentials = GetSigningCredentials();
 
             var tokenOptions = GetTokenOptions(signingCredentials);
 
             var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+
+            _loggerService.LogInfo("Jwt token has been created!");
 
             return new Jwt { Token = token };
         }
@@ -48,7 +50,7 @@ namespace Domain.Classes.Services
             return new JwtSecurityToken(
                 issuer: _issuer,
                 audience: _audience,
-                expires: DateTime.Now.AddMinutes(_expireInDay),
+                expires: DateTime.Now.AddDays(_expireInDay),
                 signingCredentials: mySigningCredentials
                 );
         }

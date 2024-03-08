@@ -1,13 +1,21 @@
-﻿using Domain.Classes.Services;
+﻿using AutoMapper;
+using Domain.Classes.DTOs.UserDTOs;
+using Domain.Classes.FluentValidation;
+using Domain.Classes.FluentValidation.Config;
+using Domain.Classes.Repositories;
+using Domain.Classes.Services;
 using Domain.Context;
 using Domain.Interfaces;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NLog;
 using System.Text;
+using WebApi.Profiles;
 
 namespace WebApi.Extensions
 {
@@ -17,7 +25,7 @@ namespace WebApi.Extensions
         {
             services.AddSingleton<ILoggerService, LoggerService>();
 
-            LogManager.Setup().LoadConfigurationFromFile("..\\Logs\\nlog.config");
+            LogManager.Setup().LoadConfigurationFromFile(string.Concat(Directory.GetCurrentDirectory(), "\\Logs\\nlog.config"));
         }
         public static void ConnectDatabase(this IServiceCollection services, WebApplicationBuilder builder)
         {
@@ -25,15 +33,17 @@ namespace WebApi.Extensions
         }
         public static void ConfigureIdentity(this IServiceCollection services)
         {
+            services.AddIdentity<IdentityUser<int>, IdentityRole<int>>().AddEntityFrameworkStores<ApplicationContext>();
+
             services.Configure<IdentityOptions>(opt =>
             {
                 opt.User.RequireUniqueEmail = true;
 
                 opt.Password.RequiredLength = 10;
-                opt.Password.RequireLowercase = true;
+                opt.Password.RequireLowercase = false;
                 opt.Password.RequireUppercase = false;
                 opt.Password.RequireNonAlphanumeric = false;
-                opt.Password.RequireDigit = true;
+                opt.Password.RequireDigit = false;
 
                 opt.SignIn.RequireConfirmedPhoneNumber = false;
                 opt.SignIn.RequireConfirmedEmail = false;
@@ -72,6 +82,13 @@ namespace WebApi.Extensions
         public static void ConfigureDependencies(this IServiceCollection services)
         {
             services.AddScoped<ILoggerService, LoggerService>();
+            services.AddScoped<IJwtService, JwtService>();
+            services.AddScoped<IUserService, UserService>();
+
+            services.AddScoped<IValidator<UserRegistrationDto>, UserRegistrationValidator>();
+            services.AddScoped<IUserEntityValidationService, UserEntityValidationService>();
+
+            services.AddScoped<IUserRepository, UserRepository>();
         }
         public static void ConfigureJwt(this IServiceCollection services, WebApplicationBuilder application)
         {
@@ -96,6 +113,18 @@ namespace WebApi.Extensions
                     ValidateIssuerSigningKey = true
                 };
             });
+        }
+        public static void ConfigureMapper(this IServiceCollection services)
+        {
+            var config = new MapperConfiguration(opt =>
+            {
+                opt.AddProfiles(new List<Profile>
+                {
+                    new UserProfile()
+                });
+            });
+
+            services.AddScoped<IMapper>(x => new Mapper(config));
         }
     }
 }

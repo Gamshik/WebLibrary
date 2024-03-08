@@ -1,6 +1,9 @@
 
 using Domain.Context;
+using Microsoft.AspNetCore.Identity;
 using WebApi.Extensions;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApi
 {
@@ -21,6 +24,10 @@ namespace WebApi
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.ConfigureDependencies();
+
+            builder.Services.ConfigureMapper();
 
             builder.Services.ConfigureJwt(builder);
 

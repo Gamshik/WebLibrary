@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Classes.Entities;
+using Domain.Interfaces;
 using System.Net;
 
 namespace WebApi.Middleware
