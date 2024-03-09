@@ -1,0 +1,1 @@
+html,body{height:100%;}body{display:flex;flex-direction:column;background-image:url("..\\library.png");background-size:cover;}.container{padding:20px;margin:5%;flex-grow:0.5;}form>*{margin:10px 5px 10px 5px;}.title-text{margin-bottom:20px;}.child{min-width:366px;opacity:0.9;}small{height:20px;}

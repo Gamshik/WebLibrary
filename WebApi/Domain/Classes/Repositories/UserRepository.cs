@@ -24,7 +24,7 @@ namespace Domain.Classes.Repositories
         public async Task<bool> CreateUserAsync(IdentityUser<int> user, string password, CancellationToken cancellationToken = default)
         {
             var result = await _userManager.CreateAsync(user, password);
-
+            
             return result.Succeeded;
         }
 

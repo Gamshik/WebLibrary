@@ -1,4 +1,3 @@
-
 using Domain.Context;
 using Microsoft.AspNetCore.Identity;
 using WebApi.Extensions;
@@ -45,6 +44,8 @@ namespace WebApi
             }
 
             app.UseHttpsRedirection();
+
+            app.UseStaticFiles();
 
             app.UseAuthentication();
             app.UseAuthorization();

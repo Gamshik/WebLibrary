@@ -23,8 +23,9 @@ namespace Domain.Classes.FluentValidation
 
             if (result.IsValid)
                 return new Result { IsSuccess = true };
-
-            return new Result { IsSuccess = false, StatusCode = 400, Message = $"{result.Errors.Select(e => e.PropertyName)} is not valid!" };
+            StringBuilder builder = new StringBuilder();
+            result.Errors.ForEach(e => builder.Append($"{e.ErrorMessage} "));
+            return new Result { IsSuccess = false, StatusCode = 400, Message = builder.ToString() };
         }
     }
 }

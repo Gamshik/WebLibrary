@@ -64,7 +64,7 @@ namespace Domain.Classes.Services
             if (!createIsSuccess)
             {
                 _loggerService.LogError($"An error occurred while creating a user!");
-                return new Result { IsSuccess = false, StatusCode = 500, Message = "Internal server error!" };
+                return new Result { IsSuccess = false, StatusCode = 400, Message = "Entered incorrect data!" };
             }
 
             return new Result { IsSuccess = true, StatusCode = 201, Message = $"User with email - {user.Email} has been created!" };
