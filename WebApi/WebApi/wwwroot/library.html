@@ -34,5 +34,20 @@
           <button class="btn btn-outline-success" type="submit" id="Test">Search</button>
         </form>
       </div>
+  <script>
+    let responseData;
+    
+    async function SendRequest(){
+      var token = localStorage.getItem("WebLibraryToken")
+      const response = await fetch("https://localhost:7106/api/Book", {
+        method: "GET",
+        headers: {
+          "Accept": "*/*",
+          "Authorization": "Bearer " + token
+        }
+      })
+      responseData = await response.json()
+    }
+  </script>
 </body>
 </html>
