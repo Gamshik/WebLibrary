@@ -34,6 +34,13 @@
           <button class="btn btn-outline-success" type="submit" id="Test">Search</button>
         </form>
       </div>
+    </div>
+  </nav>
+  <div id="container">
+    <div class="row row-cols-1 row-cols-md-6 g-4" id="cardStore">
+    </div>
+  </div>
+
   <script>
     let responseData;
     
@@ -47,6 +54,56 @@
         }
       })
       responseData = await response.json()
+    }
+
+    function DrawingCards(){
+      for (const bookTitle in responseData){
+
+      let cardCol = document.createElement("div")
+      cardCol.classList.add('col')
+
+      let cardDiv = document.createElement("div")
+      cardDiv.classList.add('card')
+      cardDiv.classList.add('h-100')
+
+
+      let img = document.createElement("img")
+      img.classList.add('card-img-top')
+      img.setAttribute('src', "data:image/jpeg;base64," + responseData[bookTitle].cover); 
+      img.style.objectFit = "fill"
+      img.style.height = "400px"
+
+
+      let cardBodyDiv = document.createElement("div")
+      cardBodyDiv.classList.add('card-body')
+
+      let author = document.createElement("p")
+      author.classList.add('card-text')
+      author.classList.add('text-truncate')
+      author.innerText = responseData[bookTitle].author
+
+      let title = document.createElement("h5")
+      title.classList.add('card-title')
+      title.style.height = "120px"
+      title.innerText = bookTitle
+
+      let button = document.createElement("a")
+      button.classList.add('btn')
+      button.classList.add('btn-primary')
+      button.innerText = "Read book"
+
+      cardBodyDiv.appendChild(author)
+
+      cardBodyDiv.appendChild(title)
+      cardBodyDiv.appendChild(button)
+
+      cardDiv.appendChild(img)
+      cardDiv.appendChild(cardBodyDiv)
+
+      cardCol.appendChild(cardDiv)
+
+      container.appendChild(cardCol)
+      }
     }
   </script>
 </body>
