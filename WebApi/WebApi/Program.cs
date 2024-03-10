@@ -1,8 +1,5 @@
 using Domain.Context;
-using Microsoft.AspNetCore.Identity;
 using WebApi.Extensions;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
 
 namespace WebApi
 {

@@ -51,14 +51,11 @@
         const errorHelp = document.getElementById("errorHelp")
 
         document.getElementById("loginSubmit").addEventListener("click", async e => {
-            
             e.preventDefault()
-
             if (!validateData()){
                 errorHelp.innerText = ''
                 return;
             }
-            
             const response = await fetch("https://localhost:7106/api/User/Authorize", {
                 method: "POST",
                 headers: {
@@ -70,7 +67,6 @@
                     password: password.value
                 })
             });
-
             const responseData = await response.json()
 
             if (response.ok){
@@ -87,7 +83,6 @@
         document.getElementById("registerLink").addEventListener("click", e => {
             window.location.href = "https://localhost:7106/register.html"
         });
-
         function validateData(){
             const emailValue = email.value
             const passwordValue = password.value
@@ -117,10 +112,8 @@
             else{
                 setSuccess(passwordHelp)
             }
-
             return isValidate;
         }
-
         function validateEmail(email){
             return String(email).toLowerCase().match(/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/);
         }
