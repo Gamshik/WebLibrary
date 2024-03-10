@@ -42,6 +42,11 @@
   </div>
 
   <script>
+    document.addEventListener("DOMContentLoaded", async e => {
+      await SendRequest(),
+      DrawingCards()
+    })
+    const container = document.getElementById("cardStore")
     let responseData;
     
     async function SendRequest(){
