@@ -1,19 +1,15 @@
 ﻿using Domain.Classes.DTOs.UserDTOs;
 using Domain.Classes.Entities;
+using Domain.Classes.FluentValidation.Extensions;
 using Domain.Interfaces;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Classes.FluentValidation
 {
-    public class UserEntityValidationService : IUserEntityValidationService
+    public class UserEntitiesValidationService : IUserEntitiesValidationService
     {
         private readonly IValidator<UserRegistrationDto> _validator;
-        public UserEntityValidationService(IValidator<UserRegistrationDto> validator)
+        public UserEntitiesValidationService(IValidator<UserRegistrationDto> validator)
         {
             _validator = validator;
         }
@@ -23,9 +19,8 @@ namespace Domain.Classes.FluentValidation
 
             if (result.IsValid)
                 return new Result { IsSuccess = true };
-            StringBuilder builder = new StringBuilder();
-            result.Errors.ForEach(e => builder.Append($"{e.ErrorMessage} "));
-            return new Result { IsSuccess = false, StatusCode = 400, Message = builder.ToString() };
+
+            return new Result { IsSuccess = false, StatusCode = 400, Message = result.ErrorsToString() };
         }
     }
 }
