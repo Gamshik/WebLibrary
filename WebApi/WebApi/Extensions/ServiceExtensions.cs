@@ -125,7 +125,9 @@ namespace WebApi.Extensions
             {
                 opt.AddProfiles(new List<Profile>
                 {
-                    new UserProfile()
+                    new UserProfile(),
+                    new BookPreviewProfile(),
+                    new TextOfBookProfile()
                 });
             });
 
