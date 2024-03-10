@@ -1,6 +1,7 @@
 ﻿using Domain.Classes.DTOs.BookDTOs;
 using Domain.Classes.Parameters;
 using Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -15,7 +16,8 @@ namespace WebApi.Controllers
         {
             _bookService = bookService;
         }
-        [HttpPost("CreateTextOfBook")]
+        [HttpPost]
+        [Authorize]
         public IActionResult CrateTextOfBook(int bookId, [FromBody] string text)
         {
             var textOfBookCreate = new TextOfBookCreateDto { BookId = bookId, Text = text };
@@ -23,7 +25,8 @@ namespace WebApi.Controllers
 
             return StatusCode(result.StatusCode, result.Message);
         }
-        [HttpGet("TextOfBook")]
+        [HttpGet]
+        [Authorize]
         public IActionResult GetTextOfBook(int bookId, [FromQuery] PagingParameters pagingParameters)
         {
             var text = _bookService.GetTextOfPage(bookId, pagingParameters);
