@@ -51,11 +51,20 @@ namespace Domain.Classes.Services
 
             return new Result { IsSuccess = true, StatusCode = 201, Message = $"Text for book with id = {textOfBook.BookId} had been created!" };
         }
-        public IEnumerable<BookPreviewDto> GetAllBookPreviews()
+        public Dictionary<string, BookPreviewDto> GetAllBookPreviews()
         {
             var booksPreviews = _bookRepository.GetAllBookPreviews();
 
-            return _mapper.Map<IEnumerable<BookPreviewDto>>(booksPreviews);
+            var titleBook = new Dictionary<string, BookPreviewDto>();
+
+            foreach (var bookPreview in booksPreviews)
+            {
+                var bookPreviewDto = _mapper.Map<BookPreviewDto>(bookPreview);
+
+                titleBook.Add(bookPreview.Title, bookPreviewDto);
+            }
+
+            return titleBook;
         }
         public PagedList<char> GetTextOfPage(int bookId, PagingParameters parameters)
         {
