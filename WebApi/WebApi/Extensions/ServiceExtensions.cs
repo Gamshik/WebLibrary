@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Classes.DTOs.UserDTOs;
+using Domain.Classes.Entities;
 using Domain.Classes.FluentValidation;
 using Domain.Classes.FluentValidation.Config;
 using Domain.Classes.Repositories;
@@ -10,7 +11,6 @@ using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NLog;
@@ -84,11 +84,16 @@ namespace WebApi.Extensions
             services.AddScoped<ILoggerService, LoggerService>();
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IBookService, BookService>();
 
             services.AddScoped<IValidator<UserRegistrationDto>, UserRegistrationValidator>();
-            services.AddScoped<IUserEntityValidationService, UserEntityValidationService>();
+            services.AddScoped<IValidator<BookPreview>, BookPreviewValidator>();
+            services.AddScoped<IValidator<TextOfBook>, TextOfBookValidator>();
+            services.AddScoped<IUserEntitiesValidationService, UserEntitiesValidationService>();
+            services.AddScoped<IBookEntitiesValidationService, BookEntitiesValidationService>();
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IBookRepository, BookRepository>();
         }
         public static void ConfigureJwt(this IServiceCollection services, WebApplicationBuilder application)
         {
