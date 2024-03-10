@@ -25,10 +25,6 @@
                       <input type="password" class="form-control" id="inputPassword" aria-describedby="passwordHelp"  placeholder="Password">
                       <small id="passwordHelp" class="form-text text-danger error"></small>
                     </div>
-                    <div class="form-group form-check">
-                      <input type="checkbox" class="form-check-input" id="rememberUser">
-                      <label class="form-check-label" for="rememberUser">Remember me</label>
-                    </div>
                     <button type="submit" id="loginSubmit" class="btn btn-primary">Sign in</button>
                     <button type="button" class="btn btn-link" id="registerLink">Sign up</button>
                     <div class="form-group">
@@ -41,7 +37,7 @@
     <script src="bootstrap/js/bootstrap.min.js"></script>
 
     <script>
-        var tokenKey = "WebLibraryToken"
+        let tokenKey = "WebLibraryToken"
 
         const email = document.getElementById("inputEmail")
         const password = document.getElementById("inputPassword")
@@ -70,9 +66,7 @@
             const responseData = await response.json()
 
             if (response.ok){
-                if(document.getElementById("rememberUser").checked){
-                    localStorage.setItem(tokenKey, responseData.token)
-                }
+                localStorage.setItem(tokenKey, responseData.token)
                 window.location.href = "https://localhost:7106/library.html"
             }
             else{
