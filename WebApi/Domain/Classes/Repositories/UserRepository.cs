@@ -1,10 +1,5 @@
 ﻿using Domain.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Classes.Repositories
 {
@@ -24,7 +19,7 @@ namespace Domain.Classes.Repositories
         public async Task<bool> CreateUserAsync(IdentityUser<int> user, string password, CancellationToken cancellationToken = default)
         {
             var result = await _userManager.CreateAsync(user, password);
-            
+
             return result.Succeeded;
         }
 
