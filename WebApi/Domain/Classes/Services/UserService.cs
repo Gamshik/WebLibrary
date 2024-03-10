@@ -3,11 +3,6 @@ using Domain.Classes.DTOs.UserDTOs;
 using Domain.Classes.Entities;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Classes.Services
 {
@@ -15,10 +10,10 @@ namespace Domain.Classes.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IJwtService _jwtService;
-        private readonly IUserEntityValidationService _validator;
+        private readonly IUserEntitiesValidationService _validator;
         private readonly ILoggerService _loggerService;
-        private readonly IMapper _mapper; 
-        public UserService(IUserRepository userRepository, IJwtService jwtService, IUserEntityValidationService validator, ILoggerService loggerService, IMapper mapper)
+        private readonly IMapper _mapper;
+        public UserService(IUserRepository userRepository, IJwtService jwtService, IUserEntitiesValidationService validator, ILoggerService loggerService, IMapper mapper)
         {
             _userRepository = userRepository;
             _jwtService = jwtService;
@@ -67,7 +62,7 @@ namespace Domain.Classes.Services
                 return new Result { IsSuccess = false, StatusCode = 400, Message = "Entered incorrect data!" };
             }
 
-            return new Result { IsSuccess = true, StatusCode = 201, Message = $"User with email - {user.Email} has been created!" };
+            return new Result { IsSuccess = true, StatusCode = 201, Message = $"User with email - {user.Email} had been created!" };
         }
     }
 }
