@@ -16,14 +16,14 @@ namespace WebApi.Controllers
             _loggerService = loggerService;
         }
         [HttpPost("Register")]
-        public async Task<ActionResult> RegisterAsync([FromBody]UserRegistrationDto user, CancellationToken cancellationToken = default)
+        public async Task<ActionResult> RegisterAsync([FromBody] UserRegistrationDto user, CancellationToken cancellationToken = default)
         {
             var result = await _userService.RegistrationAsync(user, cancellationToken);
 
             return StatusCode(result.StatusCode, new { Message = result.Message });
         }
         [HttpPost("Authorize")]
-        public async Task<IActionResult> AuthorizeAsync([FromBody]UserAuthorizeDto user, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> AuthorizeAsync([FromBody] UserAuthorizeDto user, CancellationToken cancellationToken = default)
         {
             var jwtToken = await _userService.AuthorizationAsync(user, cancellationToken);
 
