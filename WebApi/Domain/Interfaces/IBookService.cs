@@ -8,7 +8,7 @@ namespace Domain.Interfaces
     {
         Result CreateBookPreview(BookPreviewCreateDto bookPreviewCreateDto);
         Result CreateTextOfBook(TextOfBookCreateDto textOfBookCreateDto);
-        Dictionary<string, BookPreviewDto> GetAllBookPreviews();
+        Dictionary<int, BookPreviewDto> GetAllBookPreviews();
         PagedList<char> GetTextOfPage(int bookId, PagingParameters parameters);
     }
 }
