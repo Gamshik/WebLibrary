@@ -62,7 +62,7 @@
     }
 
     function DrawingCards(){
-      for (const bookTitle in responseData){
+      for (const bookId in responseData){
 
       let cardCol = document.createElement("div")
       cardCol.classList.add('col')
@@ -74,7 +74,7 @@
 
       let img = document.createElement("img")
       img.classList.add('card-img-top')
-      img.setAttribute('src', "data:image/jpeg;base64," + responseData[bookTitle].cover); 
+      img.setAttribute('src', "data:image/jpeg;base64," + responseData[bookId].cover); 
       img.style.objectFit = "fill"
       img.style.height = "400px"
 
@@ -85,12 +85,12 @@
       let author = document.createElement("p")
       author.classList.add('card-text')
       author.classList.add('text-truncate')
-      author.innerText = responseData[bookTitle].author
+      author.innerText = responseData[bookId].author
 
       let title = document.createElement("h5")
       title.classList.add('card-title')
       title.style.height = "120px"
-      title.innerText = bookTitle
+      title.innerText = responseData[bookId].title
 
       let button = document.createElement("a")
       button.classList.add('btn')
