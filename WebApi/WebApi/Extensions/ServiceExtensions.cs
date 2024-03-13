@@ -1,12 +1,7 @@
 ﻿using AutoMapper;
-using Domain.Classes.DTOs.UserDTOs;
-using Domain.Classes.Entities;
-using Domain.Classes.FluentValidation;
-using Domain.Classes.FluentValidation.Config;
-using Domain.Classes.Repositories;
-using Domain.Classes.Services;
-using Domain.Context;
-using Domain.Interfaces;
+using Contracts;
+using Entities;
+using Entities.DTOs.UserDTOs;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -15,6 +10,11 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NLog;
 using System.Text;
+using Validation.Config;
+using WebApi.BLL.Services;
+using WebApi.BLL.Services.ValidationServices;
+using WebApi.DAL.Context;
+using WebApi.DAL.Repositories;
 using WebApi.Profiles;
 
 namespace WebApi.Extensions

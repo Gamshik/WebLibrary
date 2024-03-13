@@ -1,6 +1,6 @@
-﻿using Domain.Classes.DTOs.BookDTOs;
-using Domain.Classes.Parameters;
-using Domain.Interfaces;
+﻿using Contracts;
+using Entities.DTOs.BookDTOs;
+using Entities.Parameters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;

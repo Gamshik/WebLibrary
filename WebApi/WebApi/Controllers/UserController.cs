@@ -1,5 +1,5 @@
-﻿using Domain.Classes.DTOs.UserDTOs;
-using Domain.Interfaces;
+﻿using Contracts;
+using Entities.DTOs.UserDTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers

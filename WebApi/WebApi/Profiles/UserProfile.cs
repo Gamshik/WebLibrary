@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Domain.Classes.DTOs.UserDTOs;
+using Entities.DTOs.UserDTOs;
 using Microsoft.AspNetCore.Identity;
 
 namespace WebApi.Profiles

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Domain.Classes.DTOs.BookDTOs;
-using Domain.Classes.Entities;
+using Entities;
+using Entities.DTOs.BookDTOs;
 
 namespace WebApi.Profiles
 {
